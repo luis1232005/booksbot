@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+import datetime
 
 class BooksSpider(scrapy.Spider):
     name = "books"
     allowed_domains = ["xkm.com.tw"]
+    now=datetime.datetime.now()
+    delta=datetime.timedelta(days=-3)
+    n_days=now+delta
+    dateStr=n_days.strftime('%y%m%d')
     start_urls = [
-        "http://www1.xkm.com.tw/hr/DATA/HR190604.htm"
+        "http://www1.xkm.com.tw/hr/DATA/HR"+dateStr+".htm"
     ]
 
     def parse(self, response):
