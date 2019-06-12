@@ -9,6 +9,7 @@ class BooksSpider(scrapy.Spider):
     delta=datetime.timedelta(days=-3)
     n_days=now+delta
     dateStr=n_days.strftime('%y%m%d')
+    lDateStr=n_days.strftime('%Y-%m-%d')
     start_urls = [
         "http://www1.xkm.com.tw/hr/DATA/HR"+dateStr+".htm"
     ]
@@ -20,6 +21,7 @@ class BooksSpider(scrapy.Spider):
             tds = len(tr.xpath('td'))
             item = {}
             if(count > 4 and tds > 6):
+                item['date'] = self.lDateStr
                 item['tv'] = tr.xpath('td[2]/text()').extract()
                 item['program'] = tr.xpath('td[3]/text()').extract()
                 item['time'] = tr.xpath('td[4]/text()').extract()
